@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: metrics-consumer
+  sql.init.mode: always
+  datasource:
+    url: jdbc:postgresql://localhost:5435/consumer_db
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    topic: metrics-topic
+    kafkaMessageGroupId: kafka-message-group-id
+  aspect:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+
+springdoc:
+  api-docs:
+    path: /metrics-consumer/v3/api-docs

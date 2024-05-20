@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: metrics-producer
+  sql.init.mode: always
+  datasource:
+    url: jdbc:postgresql://localhost:5435/producer_db
+    username: user
+    password: password
+    driver-class-name: org.postgresql.Driver
+    data: classpath:data.sql
+    initialization-mode: always
+  jpa:
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    topic: metrics-topic
+  aspect:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+
+metrics:
+  observation: jvm.memory.used,jvm.memory.max,jvm.compilation.time,process.cpu.usage,disk.free,disk.total
+
+scheduler:
+  enable: ${SCHEDULER_ENABLE:true}
+  metric-send: ${METRIC_SEND_CRON:0 */5 * * * * }
+
+springdoc:
+  api-docs:
+    path: /metrics-producer/v3/api-docs

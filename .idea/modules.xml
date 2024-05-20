@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/EducationKafka.iml" filepath="$PROJECT_DIR$/.idea/EducationKafka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/discovery/discovery.iml" filepath="$PROJECT_DIR$/discovery/discovery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/metrics-consumer/metrics-consumer.iml" filepath="$PROJECT_DIR$/metrics-consumer/metrics-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/metrics-producer/metrics-producer.iml" filepath="$PROJECT_DIR$/metrics-producer/metrics-producer.iml" />
+    </modules>
+  </component>
+</project>

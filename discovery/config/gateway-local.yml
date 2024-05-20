@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: producer
+          uri: lb://metrics-producer
+          predicates:
+            - Path=/producer/**
+          filters:
+            - RewritePath=/producer(?<segment>/?.*)", "$\\{segment}
+        - id: producer-api
+          uri: lb://metrics-producer
+          predicates:
+            - Path=/metrics-producer/v3/**
+          filters:
+            - RewritePath=/producer(?<segment>/?.*)", "$\\{segment}
+        - id: consumer
+          uri: lb://metrics-consumer
+          predicates:
+            - Path=/consumer/**
+          filters:
+            - RewritePath=/consumer(?<segment>/?.*)", "$\\{segment}
+        - id: consumer-api
+          uri: lb://metrics-consumer
+          predicates:
+            - Path=/metrics-consumer/v3/**
+          filters:
+            - RewritePath=/consumer(?<segment>/?.*)", "$\\{segment}
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /metrics-producer/v3/api-docs
+        name: metrics-producer
+      - url: /metrics-consumer/v3/api-docs
+        name: metrics-consumer
+
+
+    discovery:
+      locator:
+        lower-case-service-id: true
+
